@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Client</string>
+    <string name="type_speedo">typeSpeedo</string>
+    <string name="sybtype_en_US">subtype_en_US</string>
 </resources>
