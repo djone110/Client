@@ -4,11 +4,16 @@ import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
+import android.widget.Toast;
+
+import java.sql.Time;
+import java.util.Calendar;
 
 public class SpeedoKey extends InputMethodService
         implements KeyboardView.OnKeyboardActionListener, View.OnTouchListener{
@@ -17,10 +22,12 @@ public class SpeedoKey extends InputMethodService
     private Keyboard keyboard;
     private StringBuilder mComposing = new StringBuilder();
     Boolean PROCESS_HARD_KEYS = true;
+    int counter = 0;
+    int timeStart, timeEnd, wordSpeed;
+    String TAG = "SpeedoKey";
 
-
-    String TAG = "FUCKINGBULLF+SIT";
     private boolean caps = false;
+    Calendar c = Calendar.getInstance();
 
     @Override
     public View onCreateInputView() {
@@ -30,6 +37,11 @@ public class SpeedoKey extends InputMethodService
         kv.setKeyboard(keyboard);
         kv.setOnKeyboardActionListener(this);
         kv.setOnTouchListener(this);
+        kv.setPreviewEnabled(false);
+        timeStart = 0;
+        timeEnd = 0;
+        wordSpeed = 0;
+
         Log.d(TAG, "ENDCREATE");
         return kv;
     }
@@ -81,6 +93,12 @@ public class SpeedoKey extends InputMethodService
 
         InputConnection ic = getCurrentInputConnection();
         //playClick(primaryCode);
+        if (counter == 0){
+            timeStart = c.get(Calendar.SECOND);
+            Log.d(TAG, "onKey: " + timeStart);
+            Toast.makeText(SpeedoKey.this, String.valueOf(timeStart) , Toast.LENGTH_SHORT).show();
+        }
+        counter++;
         switch (primaryCode){
             case Keyboard.KEYCODE_DELETE:
                 handleBackspace();
@@ -89,8 +107,21 @@ public class SpeedoKey extends InputMethodService
                 handleShift();
                 break;
             case Keyboard.KEYCODE_DONE:
+                timeEnd = c.get(Calendar.SECOND);
+                wordSpeed = timeEnd - timeStart;
+                counter--;
+                Log.d(TAG, "onKey: length: " + counter );
+                counter = 0;
                 handleDone();
                 break;
+            case 32:
+                timeEnd = c.get(Calendar.SECOND);
+                wordSpeed = timeEnd - timeStart;
+                counter--;
+                Log.d(TAG, "onKey: length: " + counter );
+                counter = 0;
+                handleCharacter(primaryCode);
+
             default:
                 handleCharacter(primaryCode);
                 break;
@@ -206,5 +237,20 @@ public class SpeedoKey extends InputMethodService
     @Override
     public void swipeUp() {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        counter = 0;
+        if (timeStart != 0){
+            timeEnd = c.get(Calendar.SECOND);
+            wordSpeed = timeEnd - timeStart;
+            counter--;
+            Log.d(TAG, "onDestroy: Length: " + counter);
+        }
+        timeStart = 0;
+        timeEnd = 0;
+        wordSpeed = 0;
     }
 }

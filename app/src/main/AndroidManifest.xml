@@ -3,6 +3,8 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
     <application
         android:allowBackup="true"
@@ -10,6 +12,17 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         >
+        <receiver android:name=".recieverDependantProbes.massReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_ON"/>
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+                <action android:name="android.intent.action.DOCK_EVENT"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".recieverDependantProbes.locationFinder"/>
 
         <receiver android:name=".BootCompletedReciever" >
             <intent-filter>
