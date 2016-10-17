@@ -1,34 +1,101 @@
 package com.teamawesome.client.recieverDependantProbes;
 
 //Android OS stuff
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
+import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.app.usage.UsageStats;
+import android.app.usage.*;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 //JSON stuff
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject
+import com.teamawesome.client.R;
+
+//import org.json.simple.JSONArray;
+//import org.json.simple.JSONObject;
 
 //vanilla Java stuff
 import java.util.Calendar;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * App Usage Collector
  * Brandon Denton
  */
 
-public class AppUsage {
+public class AppUsage extends Service {
 
     String TAG = "getUsageStatistics";
     int counter = 0;
     int timeStart, timeEnd, wordSpeed;
     Calendar cal = Calendar.getInstance();
-    List<UsageStats> queryUsageStats = mUsageStatsManager
+    UsageStatsManager myUsageManager;
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        Log.d(TAG, "onBind: Binding Usage");
+        myUsageManager = (UsageStatsManager)this.getSystemService(USAGE_STATS_SERVICE);
+        Log.d(TAG, "onBind: Finished Usage");
+        return null;
+    }
+
+    @Override
+    public void onCreate() {
+        Log.d(TAG, "onCreate: Usage Created");
+        super.onCreate();
+        int year, month, day, hour, minute;
+        Calendar now = Calendar.getInstance();
+        Calendar start = Calendar.getInstance();
+        Map<String, UsageStats> usageByPackage;
+        myUsageManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
+        //Get app usage from 30 minutes ago.
+        long startTime = now.getTimeInMillis()-( 30 * 60 * 1000);
+        long endTime = now.getTimeInMillis();
+        int today = now.get(Calendar.DAY_OF_YEAR);
+
+
+        start.set(Calendar.DATE, 1);
+        start.set(Calendar.MONTH, 1);
+
+        List<UsageStats> queryUsageStats = myUsageManager.queryUsageStats(UsageStatsManager.INTERVAL_YEARLY, start.getTimeInMillis(),now.getTimeInMillis() );
+
+        if(myUsageManager == null) Log.d(TAG, "myUsageManager is fucking null...");
+        usageByPackage = myUsageManager.queryAndAggregateUsageStats(startTime, endTime);
+        Log.d(TAG, "Usage: Start:" + (today-1) + " End:" + today + " Size:" + queryUsageStats.size() );
+        // Iterates over every package use and prints time used.
+        // Print info to the dev log for now.
+        for(Map.Entry<String, UsageStats> entry : usageByPackage.entrySet()){
+            Log.d(TAG, "Package: " + entry.getKey() + " Time used: " + entry.getValue().getTotalTimeInForeground());
+        }
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        return super.onUnbind(intent);
+    }
+
+    /*
+    List<UsageStats> queryUsageStats = mUsageStatsManager;
             .queryUsageStats(intervalType, cal.getTimeInMillis(),
                     System.currentTimeMillis());
-
+*/
+    /*
     @Override
     public List<UsageStats> getUsageStatistics(int period) {
         // Get the app statistics since one year ago from the current time.
@@ -49,5 +116,5 @@ public class AppUsage {
         }
         return queryUsageStats;
     }
-
+    */
 }

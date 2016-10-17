@@ -1,10 +1,9 @@
-package com.teamawesome.client;
+package com.teamawesome.client.main;
 
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -12,7 +11,8 @@ import android.view.View;
 import android.view.inputmethod.InputConnection;
 import android.widget.Toast;
 
-import java.sql.Time;
+import com.teamawesome.client.R;
+
 import java.util.Calendar;
 
 public class SpeedoKey extends InputMethodService
