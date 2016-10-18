@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,11 +50,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
+        Utils u = new Utils();
+        JSONObject j = new JSONObject();
+        try {
+            j.put("test", "hi");
+            u.writeJsonToFile(j);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-
-
-
 }

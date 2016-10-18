@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.teamawesome.client.NotifyingDailyService;
+//import com.teamawesome.client.NotifyingDailyService;
 
 /**
  * Created by mason on 10/2/16.

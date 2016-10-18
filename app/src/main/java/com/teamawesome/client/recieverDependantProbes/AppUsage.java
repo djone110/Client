@@ -1,18 +1,17 @@
 package com.teamawesome.client.recieverDependantProbes;
 
 //Android OS stuff
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.app.usage.UsageStats;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.teamawesome.client.R;
+
+import java.util.Calendar;
+import java.util.List;
 
 //JSON stuff
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject
-
 //vanilla Java stuff
-import java.util.Calendar;
-import java.io.FileWriter;
-import java.io.IOException;
 
 /**
  * App Usage Collector
@@ -20,7 +19,7 @@ import java.io.IOException;
  */
 
 public class AppUsage {
-
+/*
     String TAG = "getUsageStatistics";
     int counter = 0;
     int timeStart, timeEnd, wordSpeed;
@@ -49,5 +48,5 @@ public class AppUsage {
         }
         return queryUsageStats;
     }
-
+*/
 }
