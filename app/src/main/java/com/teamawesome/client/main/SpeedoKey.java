@@ -1,9 +1,22 @@
+/*
+This module creates specifies the functionality of the keyboard specifed
+in res/xml/qwerty.xml and res/layout/keyboard.xml.
+It monitors typespeed, errors over some miliseconds, and avg keystroke time, putting
+them into a JSON object.
+
+When closed it writes this information to the JSON file res/json/keyboard.json
+with it's current timestamp.
+
+ */
+
+
 package com.teamawesome.client.main;
 
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
+import android.util.JsonWriter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -13,6 +26,14 @@ import android.widget.Toast;
 
 import com.teamawesome.client.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Calendar;
 
 public class SpeedoKey extends InputMethodService
@@ -23,8 +44,13 @@ public class SpeedoKey extends InputMethodService
     private StringBuilder mComposing = new StringBuilder();
     Boolean PROCESS_HARD_KEYS = true;
     int counter = 0;
+    int errorCount = 0;
     int timeStart, timeEnd, wordSpeed;
+    JSONObject myJSON;
+    OutputStreamWriter jsonWriter;
+
     String TAG = "SpeedoKey";
+
 
     private boolean caps = false;
     Calendar c = Calendar.getInstance();
@@ -38,6 +64,14 @@ public class SpeedoKey extends InputMethodService
         kv.setOnKeyboardActionListener(this);
         kv.setOnTouchListener(this);
         kv.setPreviewEnabled(false);
+        myJSON = new JSONObject();
+        try{
+           jsonWriter= new OutputStreamWriter(openFileOutput("app/storage/JSON/keyboard", MODE_APPEND));
+        }catch (FileNotFoundException e){
+            Log.d(TAG, "speedoKey: FILE ERR "+ e);
+
+        }
+
         timeStart = 0;
         timeEnd = 0;
         wordSpeed = 0;
@@ -101,6 +135,7 @@ public class SpeedoKey extends InputMethodService
         counter++;
         switch (primaryCode){
             case Keyboard.KEYCODE_DELETE:
+                errorCount++;
                 handleBackspace();
                 break;
             case Keyboard.KEYCODE_SHIFT:
@@ -110,6 +145,21 @@ public class SpeedoKey extends InputMethodService
                 timeEnd = c.get(Calendar.SECOND);
                 wordSpeed = timeEnd - timeStart;
                 counter--;
+                try {
+                    myJSON.put("time", c.getTimeInMillis());
+                    myJSON.put("typeSpeed", wordSpeed);
+                    myJSON.put("wordLength", counter);
+                    myJSON.put("errors", errorCount);
+                    myJSON.put("keystroke", wordSpeed/counter);
+                    try {
+                        jsonWriter.write(myJSON.toString());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 Log.d(TAG, "onKey: length: " + counter );
                 counter = 0;
                 handleDone();
@@ -213,6 +263,7 @@ public class SpeedoKey extends InputMethodService
         return super.onKeyLongPress(keyCode, event);
     }
 
+
     @Override
     public void onText(CharSequence text) {
 
@@ -242,15 +293,38 @@ public class SpeedoKey extends InputMethodService
     @Override
     public void onDestroy() {
         super.onDestroy();
-        counter = 0;
+        //counter = 0;
         if (timeStart != 0){
             timeEnd = c.get(Calendar.SECOND);
             wordSpeed = timeEnd - timeStart;
             counter--;
+
+            // Packages data in JSON object, sends
+            // to file
+            try {
+                myJSON.put("time", c.getTimeInMillis());
+                myJSON.put("typeSpeed", wordSpeed);
+                myJSON.put("wordLength", counter);
+                myJSON.put("errors", errorCount);
+                myJSON.put("keystroke", wordSpeed/counter);
+
+                try {
+                    jsonWriter.write(myJSON.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
             Log.d(TAG, "onDestroy: Length: " + counter);
         }
         timeStart = 0;
         timeEnd = 0;
         wordSpeed = 0;
+        counter = 0;
+        errorCount = 0;
     }
 }

@@ -19,6 +19,7 @@ import com.teamawesome.client.R;
 public class MainActivity extends AppCompatActivity {
 
     Button button ;
+    Button jsonButton;
     EditText editText;
     String name;
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
             editText = (EditText) findViewById(R.id.editText);
             button = (Button) findViewById(R.id.button);
+            jsonButton = (Button) findViewById(R.id.jsonButton);
             int permissionLoc = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
              int permissionUsage = ContextCompat.checkSelfPermission(this,
@@ -66,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+        jsonButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+            Intent i = new Intent();
+                return false;
+            }
+        });
 
 
     }
