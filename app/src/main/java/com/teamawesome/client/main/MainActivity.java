@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.PACKAGE_USAGE_STATS);
 
             if (permissionUsage != PackageManager.PERMISSION_GRANTED) {
-
                 startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
                 Toast.makeText(MainActivity.this, "We need Usage permission please. :)", Toast.LENGTH_SHORT).show();
             }
@@ -48,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Location permissions would be gr8!", Toast.LENGTH_SHORT).show();
             }
             Toast.makeText(MainActivity.this, "Please enter your name.", Toast.LENGTH_SHORT).show();
-
-
-            Toast.makeText(MainActivity.this, "asdfasdf", Toast.LENGTH_SHORT).show();
 
             button.setOnTouchListener(new View.OnTouchListener() {
                 @Override
