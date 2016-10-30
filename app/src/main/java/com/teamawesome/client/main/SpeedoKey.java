@@ -91,14 +91,17 @@ public class SpeedoKey extends InputMethodService
                 handleShift();
                 break;
             case Keyboard.KEYCODE_DONE:
+                endWord();
+                if (writeJsonOnNextWord) {
+                    writeJson();
+                    resetValues();
+                }
                 handleDone();
                 break;
             // space key
             case 32:
                 // after the user presses the space key, they've completed a word
-                long timeOfWordEnd = System.currentTimeMillis();
-                wordSpeed.add(timeOfWordEnd - timeOfWordStart);
-                timeOfWordStart = 0;
+                endWord();
                 if (writeJsonOnNextWord) {
                     writeJson();
                     resetValues();
@@ -138,6 +141,16 @@ public class SpeedoKey extends InputMethodService
         pressure = new Vector<>();
         numKeyPresses = 0;
         writeJsonOnNextWord = false;
+    }
+
+    private void endWord() {
+        if (timeOfWordStart == 0) {
+            return;
+        }
+
+        long timeOfWordEnd = System.currentTimeMillis();
+        wordSpeed.add(timeOfWordEnd - timeOfWordStart);
+        timeOfWordStart = 0;
     }
 
     private float calculateAveragePressure() {
