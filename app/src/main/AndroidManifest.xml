@@ -56,7 +56,12 @@
         <receiver
             android:name=".comm.commRecv"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
+
+        <service
+            android:name=".windVane.windVaneLoop"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

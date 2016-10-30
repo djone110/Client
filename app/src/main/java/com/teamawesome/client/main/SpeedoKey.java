@@ -123,7 +123,7 @@ public class SpeedoKey extends InputMethodService
             json.put("numDeletes", numDeletes);
             json.put("avgPressure", calculateAveragePressure());
             // this is located at: /data/data/com.teamawesome.client/files/
-            OutputStreamWriter jsonWriter = new OutputStreamWriter(openFileOutput("keyboard_" + System.currentTimeMillis() + ".json", MODE_APPEND));
+            OutputStreamWriter jsonWriter = new OutputStreamWriter(openFileOutput("keyboard_Window.json", MODE_APPEND));
             jsonWriter.write(json.toString(4));
             Toast.makeText(this, "wrote json", Toast.LENGTH_SHORT).show();
             jsonWriter.close();
