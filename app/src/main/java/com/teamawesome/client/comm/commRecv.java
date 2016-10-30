@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+/*
 public class commRecv extends BroadcastReceiver {
     public commRecv() {
         // listen on port 42069 for training data from server
@@ -47,3 +48,4 @@ public class commRecv extends BroadcastReceiver {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 }
+*/
