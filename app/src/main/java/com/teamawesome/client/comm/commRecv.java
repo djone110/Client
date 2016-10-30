@@ -9,7 +9,13 @@ public class commRecv extends BroadcastReceiver {
     public commRecv() {
         // listen on port 42069 for training data from server
         int portNumber = 42069;
+    }
 
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+    }
+/*
         try (
                 ServerSocket serverSocket = new ServerSocket(portNumber);
                 Socket clientSocket = serverSocket.accept();
@@ -46,4 +52,5 @@ public class commRecv extends BroadcastReceiver {
         // an Intent broadcast.
         throw new UnsupportedOperationException("Not yet implemented");
     }
+*/
 }
