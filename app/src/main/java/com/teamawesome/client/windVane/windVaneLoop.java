@@ -63,6 +63,7 @@ public class windVaneLoop extends Service {
                // Log.d(TAG, "running: now sleeping");
                 sleep(interval, 0);
                 compareWindow();
+                bCastSample();
                 deleteWindow();
 
             } catch (InterruptedException e) {
@@ -94,7 +95,6 @@ public class windVaneLoop extends Service {
 
 
             // If the interval has gotten sufficiently small (3min in this case), consult the server
-            //
             if (interval < 30000) {
                 // If getRes returns true, the server indicates
                 // the data we received does not suggest
@@ -227,6 +227,7 @@ public class windVaneLoop extends Service {
         }
 
 
+        // This will be a broadcast that causes networkUsage, AppUsage to sample.
         private void bCastSample(){
 
         }

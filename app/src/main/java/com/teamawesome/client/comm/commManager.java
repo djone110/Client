@@ -1,3 +1,28 @@
+/**
+ *
+ * Socket-driven client-server communicator.
+ * Utilized only in the windVane module.
+ *
+ * When windVane module finds local comparison indicates a foreign user, calls commServer().
+ * commServer initially sends a data packet to the server on a socket outputstream.
+ * Server will then run topic modeling on packet and history, compare word ratios,
+ * and make a decsion on wether the packet is typical behavior of our user,
+ * or if not.
+ *
+ * Once the packet has been sent, client will begin reading from port 42069
+ * to get the result from server.
+ * The server should send a 0 indicating is typical behavior, or 1 indicating not.
+ *
+ * getRes reads from the file we wrote to locally indicating server response and returns the
+ * boolean value,
+ *
+ *
+ *
+ */
+
+
+
+
 package com.teamawesome.client.comm;
 
 import android.os.AsyncTask;
@@ -64,7 +89,8 @@ public class commManager {
 
     // After a data packet has been sent,
     // We will need to get servers opinion on
-    // Ther
+    // The data we gave it. Just listens on a specified port
+    // for the information.
     private void receive(){
         try {
             socket = new Socket(host, recvPort);
