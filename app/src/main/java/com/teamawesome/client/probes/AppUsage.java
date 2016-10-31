@@ -1,35 +1,31 @@
-package com.teamawesome.client.recieverDependantProbes;
+package com.teamawesome.client.probes;
 
 //Android OS stuff
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.app.usage.*;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 //JSON stuff
-import com.teamawesome.client.R;
 
 //import org.json.simple.JSONArray;
 //import org.json.simple.JSONObject;
 
 //vanilla Java stuff
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.FileNotFoundException;
+import java.io.OutputStreamWriter;
 import java.util.Calendar;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 /**
  * App Usage Collector
- * Brandon Denton
  */
 
 public class AppUsage extends Service {
@@ -53,29 +49,41 @@ public class AppUsage extends Service {
     public void onCreate() {
         Log.d(TAG, "onCreate: Usage Created");
         super.onCreate();
-        int year, month, day, hour, minute;
         Calendar now = Calendar.getInstance();
         Calendar start = Calendar.getInstance();
         Map<String, UsageStats> usageByPackage;
         myUsageManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
+
         //Get app usage from 30 minutes ago.
         long startTime = now.getTimeInMillis()-( 30 * 60 * 1000);
         long endTime = now.getTimeInMillis();
         int today = now.get(Calendar.DAY_OF_YEAR);
+        JSONObject jsonObject = new JSONObject();
+
 
 
         start.set(Calendar.DATE, 1);
         start.set(Calendar.MONTH, 1);
 
-        List<UsageStats> queryUsageStats = myUsageManager.queryUsageStats(UsageStatsManager.INTERVAL_YEARLY, start.getTimeInMillis(),now.getTimeInMillis() );
+        List<UsageStats> queryUsageStats = myUsageManager.queryUsageStats(UsageStatsManager.INTERVAL_YEARLY, startTime,now.getTimeInMillis() );
 
-        if(myUsageManager == null) Log.d(TAG, "myUsageManager is fucking null...");
         usageByPackage = myUsageManager.queryAndAggregateUsageStats(startTime, endTime);
         Log.d(TAG, "Usage: Start:" + (today-1) + " End:" + today + " Size:" + queryUsageStats.size() );
+
         // Iterates over every package use and prints time used.
         // Print info to the dev log for now.
-        for(Map.Entry<String, UsageStats> entry : usageByPackage.entrySet()){
-            Log.d(TAG, "Package: " + entry.getKey() + " Time used: " + entry.getValue().getTotalTimeInForeground());
+
+        try {
+            for (Map.Entry<String, UsageStats> entry : usageByPackage.entrySet()) {
+//                Log.d(TAG, "Package: " + entry.getKey() + " Time used: " + entry.getValue().getTotalTimeInForeground());
+                jsonObject.put(entry.getKey(), entry.getValue());
+                OutputStreamWriter jsonWriter = new OutputStreamWriter(openFileOutput("usage_Window.json", MODE_APPEND));
+
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
         }
 
     }

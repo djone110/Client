@@ -18,7 +18,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <receiver android:name=".recieverDependantProbes.massReceiver">
+        <receiver android:name=".probes.massReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.SCREEN_ON" />
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
@@ -27,8 +27,8 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".recieverDependantProbes.locationFinder" />
-        <service android:name=".recieverDependantProbes.AppUsage" />
+        <service android:name=".probes.locationFinder" />
+        <service android:name=".probes.AppUsage" />
 
         <activity
             android:name=".main.MainActivity"
@@ -60,6 +60,10 @@
 
         <service
             android:name=".windVane.windVaneLoop"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".probes.networkUsage"
             android:enabled="true"
             android:exported="true"></service>
     </application>

@@ -6,6 +6,8 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.teamawesome.client.comm.commManager;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,12 +48,20 @@ public class windVaneLoop extends Service {
     // with local storage, we consult the server.
     // If the server finds it bad, we lock the user out.
     private class looper extends Thread{
+
+        int interval;
+        commManager myComm;
+
+        looper(){
+            interval = 50000;
+        }
+
+
         @Override
         public void run() {
             try {
                // Log.d(TAG, "running: now sleeping");
-                sleep(50000, 0);
-                compileWindow();
+                sleep(interval, 0);
                 compareWindow();
                 deleteWindow();
 
@@ -60,12 +70,6 @@ public class windVaneLoop extends Service {
             }
         }
 
-        // Agglomerate recent files into a single window file
-        // then wipe them.
-        private void compileWindow(){
-
-
-        }
 
         // Where the magic happens.
         // Read in from the window and local storage.
@@ -110,7 +114,7 @@ public class windVaneLoop extends Service {
                     words = line.split(" ");
 
                     for (i =0; i < words.length; i++){
-                        if (words[i] == "numDeletes"){
+                        if (words[i].equals("numDeletes")){
                             numberObjects++;
                             windowDeletions += Integer.parseInt(words[i+1]);
                         }
@@ -122,7 +126,7 @@ public class windVaneLoop extends Service {
                     words = line.split(" ");
 
                     for(i = 0; i < words.length; i++){
-                        if (words[i] == "numDeletes"){
+                        if (words[i].equals("numDeletes")){
                             numberObjects++;
                             storageDeletions += Integer.parseInt(words[i+1]);
                         }
@@ -142,10 +146,32 @@ public class windVaneLoop extends Service {
                 else if (avgDiff > 50){
                     // New comparison/ do stuff.
                     Log.d(TAG, "compareWindow: BAD DELETION COUNT ");
+
+                    // Other Test
+
+                    // Other Test
+
+                    // If all tests fail, decrease the sampling windows, do NOT DELETE
+                    // This will increase the rate were accruing data and allow a larger
+                    // data sample to be sent to server
+                    interval -= 1000;
+                    myComm.commServer();
+
+
+                    // If getRes returns true, the server indicates
+                    // the data we received does not indicate
+                    // a foreign user. If it returns false, then lock the user out until a password
+                    // is provided.
+                    if (myComm.getRes()){
+                        interval = 5000;
+                    }else{
+                        // Lock user out.
+                    }
                 }else{
                     // If we find that the window and
                     // storage are similar enough, append the
                     // window to the storage file.
+
                 }
 
             }catch (FileNotFoundException e){
@@ -154,8 +180,12 @@ public class windVaneLoop extends Service {
                 e.printStackTrace();
             }
 
+        }
+
+        private void bCastSample(){
 
         }
+
 
         // Deletes the last window gotten,
         // making room for the new 5 minute window.
