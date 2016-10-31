@@ -73,15 +73,56 @@ public class windVaneLoop extends Service {
 
         // Where the magic happens.
         // Read in from the window and local storage.
-        // Look for the keywords associated with each keyboard field.
-        //
+        // Look for the keywords associated with each keyboard field;
         private void compareWindow(){
+            int flags = 0;
+
+            // Vague idea of how the comparison will work.
+            // Run the three tests, and count the number of flags
+            // each sets. If it is above a certain threshold,
+            // we need to increase the sampling rates;
+            flags += keyboardComp();
+            flags += appComp() * .1;
+            flags += networkComp();
+
+
+            // When the comparison functions return
+            if (flags > 3) {
+                interval -= 10000;
+            }
+
+
+
+            // If the interval has gotten sufficiently small (3min in this case), consult the server
+            //
+            if (interval < 30000) {
+                // If getRes returns true, the server indicates
+                // the data we received does not suggest
+                // a foreign user. If it returns false, then lock the user out until a password
+                // is provided.
+                if (myComm.commServer()) {
+                    interval = 50000;
+                } else {
+                    interval = 50000;
+                    // Lock user out.
+                }
+            }
+
+        }
+
+        // Compares window file to storarage file
+        // There are four unique fields in a keyboard obj.
+        // Compare each of these fields in a window against local storage
+        // return the number of fields that were inconsistant.
+        private int keyboardComp(){
+
 
             FileInputStream winIn, storIn;
             InputStreamReader winISR, storISR;
             BufferedReader winBR, storBR;
             String line;
             String words[];
+
             int i, numberObjects;
             double windowDeletions, storageDeletions;
 
@@ -134,7 +175,6 @@ public class windVaneLoop extends Service {
                 }
                 storageDeletions /= numberObjects;
 
-
                 // Now we have the average number of deletions across
                 // stored objects and window objects, compare the two to see if close.
                 // Say storage AVG del = 10 and window AVG del = 5.
@@ -142,32 +182,18 @@ public class windVaneLoop extends Service {
                 // another keyboard field. If THATS above threshold, repeat new comparison
                 // or comm server.
                 double avgDiff = storageDeletions-windowDeletions;
+
+
+
+
                 if (avgDiff < 0) {}
                 else if (avgDiff > 50){
                     // New comparison/ do stuff.
                     Log.d(TAG, "compareWindow: BAD DELETION COUNT ");
 
-                    // Other Test
 
-                    // Other Test
-
-                    // If all tests fail, decrease the sampling windows, do NOT DELETE
-                    // This will increase the rate were accruing data and allow a larger
-                    // data sample to be sent to server
-                    interval -= 1000;
-                    myComm.commServer();
-
-
-                    // If getRes returns true, the server indicates
-                    // the data we received does not indicate
-                    // a foreign user. If it returns false, then lock the user out until a password
-                    // is provided.
-                    if (myComm.getRes()){
-                        interval = 5000;
-                    }else{
-                        // Lock user out.
-                    }
                 }else{
+                    // If there were no data issues
                     // If we find that the window and
                     // storage are similar enough, append the
                     // window to the storage file.
@@ -179,8 +205,27 @@ public class windVaneLoop extends Service {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return 1;
+        }
+
+
+        // Compares window file to storage file.
+        // There are many potential package fields.
+        // Compare them against local storage and count inconsistancies.
+        // Return the number.
+        private int appComp(){
+
+            return 1;
 
         }
+
+        // Compares window file to storage file.
+        // There is currently only one network field.
+        private int networkComp(){
+
+            return 1;
+        }
+
 
         private void bCastSample(){
 

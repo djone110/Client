@@ -34,7 +34,7 @@ public class commManager {
 
     // Establishes a connection on a given port,
     // sends data as a stream. Closes the connection.
-    public void commServer(){
+    public boolean commServer(){
 
         try{
             socket = new Socket(host, sendPort);
@@ -54,12 +54,18 @@ public class commManager {
             inputStream.close();
             socket.close();
             receive();
+            return getRes();
         }catch (IOException e){
             e.printStackTrace();
         }
+
+        return false;
     }
 
-    public void receive(){
+    // After a data packet has been sent,
+    // We will need to get servers opinion on
+    // Ther
+    private void receive(){
         try {
             socket = new Socket(host, recvPort);
             File file = new File("servResponse");
@@ -86,7 +92,7 @@ public class commManager {
     // Reads the response from the server. If it is 1
     // then the server thinks the user is bad. If it is 0
     // server thinks user is good.
-    public boolean getRes(){
+    private boolean getRes(){
         File file = new File("servResponse");
         int res;
         try {

@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
 import java.util.List;
@@ -77,12 +78,17 @@ public class AppUsage extends Service {
             for (Map.Entry<String, UsageStats> entry : usageByPackage.entrySet()) {
 //                Log.d(TAG, "Package: " + entry.getKey() + " Time used: " + entry.getValue().getTotalTimeInForeground());
                 jsonObject.put(entry.getKey(), entry.getValue());
-                OutputStreamWriter jsonWriter = new OutputStreamWriter(openFileOutput("usage_Window.json", MODE_APPEND));
+
 
             }
+
+            // Writes to the Usage Window file.
+            OutputStreamWriter jsonWriter = new OutputStreamWriter(openFileOutput("usage_Window.json", MODE_APPEND));
+            jsonWriter.write(jsonObject.toString());
+
         }catch (JSONException e){
             e.printStackTrace();
-        }catch(FileNotFoundException e){
+        }catch(IOException e){
             e.printStackTrace();
         }
 
