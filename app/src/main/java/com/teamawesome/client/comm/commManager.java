@@ -42,9 +42,10 @@ import java.net.URL;
  * Created by mason on 10/20/16.
  */
 public class commManager {
-    int sendPort, recvPort, int count;
+    int sendPort, recvPort, count;
     Socket socket;
     String host;
+    String str;
 
     // Grab IP and service ports from a config file.
     commManager(){
@@ -115,8 +116,6 @@ public class commManager {
     }
 
 
-
-
     // Reads the response from the server. If it is 1
     // then the server thinks the user is bad. If it is 0
     // server thinks user is good.
@@ -129,12 +128,11 @@ public class commManager {
             if (res == 1){
                 return false;
             }else return true;
-        }catch (IOException e){
+        } catch (IOException e){
 
         }
 
         return true;
-
     }
 
 

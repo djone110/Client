@@ -1,5 +1,6 @@
 package com.teamawesome.client.comm;
 
+import java.io.*;
 import java.net.*;  // sockets
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,45 +13,31 @@ public class commRecv extends BroadcastReceiver {
     }
 
     @Override
+    // I have to change some stuff with this because right now it's
+    // pretty mUDAMUDAMUDAMUDAMUDAMUDA!!! - Brandon
     public void onReceive(Context context, Intent intent) {
-
-    }
-/*
-        try (
-                ServerSocket serverSocket = new ServerSocket(portNumber);
-                Socket clientSocket = serverSocket.accept();
-                PrintWriter out =
-                        new PrintWriter(clientSocket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(clientSocket.getInputStream()));
-        )
-        //
         String inputLine, outputLine;
+        try {
+            ServerSocket serverSocket = new ServerSocket(portNumber);
+            Socket clientSocket = serverSocket.accept();
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-        // Initiate conversation with client
-        commRecvProtocol crp = new commRecvProtocol();
-        outputLine = crp.processInput(null);
-        out.println(outputLine);
-
-        while ((inputLine = in.readLine()) != null) {
-            outputLine = crp.processInput(inputLine);
+            // Initiate conversation with client
+            commRecvProtocol crp = new commRecvProtocol();
+            outputLine = crp.processInput(null);
             out.println(outputLine);
-            if (outputLine.equals("some terminating stuff idk"))
-                break;
+
+            while ((inputLine = in.readLine()) != null) {
+                outputLine = crp.processInput(inputLine);
+                out.println(outputLine);
+                if (outputLine.equals("some terminating stuff idk"))
+                    break;
+            }
+        } catch (IOException e) {
+              System.out.println("Exception caught when trying to listen on port " + portNumber + " or listening for a connection");
+              System.out.println(e.getMessage());
         }
-    } catch (IOException e) {
-        System.out.println("Exception caught when trying to listen on port "
-                + portNumber + " or listening for a connection");
-        System.out.println(e.getMessage());
-    }
-}
     }
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        // TODO: This method is called when the BroadcastReceiver is receiving
-        // an Intent broadcast.
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-*/
 }
