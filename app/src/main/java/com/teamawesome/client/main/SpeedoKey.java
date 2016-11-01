@@ -18,13 +18,12 @@ import android.inputmethodservice.KeyboardView;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.teamawesome.client.R;
+import com.teamawesome.client.misc.KeyboardDatapoint;
+import com.teamawesome.client.misc.KeyboardWindow;
 
-import org.json.JSONObject;
-
-import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class SpeedoKey extends InputMethodService
@@ -119,17 +118,15 @@ public class SpeedoKey extends InputMethodService
     }
 
     private void writeJson() {
-        JSONObject json = new JSONObject();
+        KeyboardWindow keyboardWindow = new KeyboardWindow(this);
         try {
-            json.put("wordSpeed", wordSpeed);
-            json.put("numWords", wordSpeed.size());
-            json.put("numDeletes", numDeletes);
-            json.put("avgPressure", calculateAveragePressure());
-            // this is located at: /data/data/com.teamawesome.client/files/
-            OutputStreamWriter jsonWriter = new OutputStreamWriter(openFileOutput("keyboard_Window.json", MODE_APPEND));
-            jsonWriter.write(json.toString(4));
-            Toast.makeText(this, "wrote json", Toast.LENGTH_SHORT).show();
-            jsonWriter.close();
+            KeyboardDatapoint d = new KeyboardDatapoint();
+            d.avgWordSpeed = calculateAverageWordSpeed();
+            d.numWords = wordSpeed.size();
+            d.numDeletes = numDeletes;
+            d.avgPressure = calculateAveragePressure();
+            d.timeStamp = System.currentTimeMillis();
+            keyboardWindow.addDatapoint(d);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -159,6 +156,15 @@ public class SpeedoKey extends InputMethodService
             sum += f;
         }
         return sum / pressure.size();
+    }
+
+    private int calculateAverageWordSpeed() {
+        float sum = 0;
+        for (long l : wordSpeed) {
+            sum += l;
+        }
+        float avg = sum / wordSpeed.size();
+        return Math.round(avg);
     }
 
     private void handleCharacter(int primaryCode){

@@ -16,6 +16,7 @@ public class commRecv extends BroadcastReceiver {
     // I have to change some stuff with this because right now it's
     // pretty mUDAMUDAMUDAMUDAMUDAMUDA!!! - Brandon
     public void onReceive(Context context, Intent intent) {
+        /*
         String inputLine, outputLine;
         try {
             ServerSocket serverSocket = new ServerSocket(portNumber);
@@ -38,6 +39,7 @@ public class commRecv extends BroadcastReceiver {
               System.out.println("Exception caught when trying to listen on port " + portNumber + " or listening for a connection");
               System.out.println(e.getMessage());
         }
+        */
     }
 
 }

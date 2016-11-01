@@ -52,7 +52,7 @@ public class commManager {
         File conff = new File("files/commConf.txt");
 	String[] arr = new String[3];// if size is fixed otherwise use ArrayList.
 	int i=0;
-	while((str = conff.readLine()) != null)          
+	//while((str = conff.readLine()) != null)
 	    arr[i++] = str;     
 
         host = arr[0];
