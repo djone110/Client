@@ -19,10 +19,6 @@
  *
  *
  */
-
-
-
-
 package com.teamawesome.client.comm;
 
 import android.os.AsyncTask;
@@ -46,15 +42,20 @@ import java.net.URL;
  * Created by mason on 10/20/16.
  */
 public class commManager {
-    int sendPort = 24601;
-    int recvPort = 42069;
-    int count;
+    int sendPort, recvPort, int count;
     Socket socket;
     String host;
 
+    // Grab IP and service ports from a config file.
     commManager(){
+        String[] arr = new String[3];// if size is fixed otherwise use ArrayList.
+	int i=0;
+	while((str = in.readLine()) != null)          
+	    arr[i++] = str;     
 
-        host = "111.1.1.111";
+        host = arr[0];
+        sendPort = Integer.parseInt(arr[1]);
+	recvPort = Integer.parseInt(arr[2]);
     }
 
     // Establishes a connection on a given port,
@@ -80,7 +81,7 @@ public class commManager {
             socket.close();
             receive();
             return getRes();
-        }catch (IOException e){
+        } catch (IOException e){
             e.printStackTrace();
         }
 
