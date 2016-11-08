@@ -9,11 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".main.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -22,26 +17,26 @@
         android:layout_centerHorizontal="true"
         android:gravity="center_vertical">
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
-            android:layout_gravity="center_horizontal"
-            android:autoText="false"
-            android:background="#800000" />
+            android:id="@+id/textView"
+            android:text="@string/mainActivityText"
+            android:textSize="18sp"
+            android:layout_marginBottom="20dp" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:text="Analyze"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Button"
             android:id="@+id/button"
-            android:layout_gravity="center_horizontal" />
+            android:onClick="analyze" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:text="Clear History"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Read JSON"
-            android:id="@+id/jsonButton"
-            android:layout_gravity="center_horizontal" />
+            android:id="@+id/button2"
+            android:onClick="clearHistory" />
     </LinearLayout>
 </RelativeLayout>

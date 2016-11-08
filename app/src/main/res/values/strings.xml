@@ -2,4 +2,6 @@
     <string name="app_name">Client</string>
     <string name="type_speedo">typeSpeedo</string>
     <string name="sybtype_en_US">subtype_en_US</string>
+    <string name="mainActivityText">Type something using our custom keyboard anywhere on the phone. When you\'re done, come back here and press the Analyze button to analyze your typing patterns. To delete all history of your typing patterns and start fresh, press the Clear History button.</string>
+    <string name="notImplementedYet">Not implemented yet</string>
 </resources>
