@@ -3,11 +3,14 @@ package com.teamawesome.client.misc;
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.util.JsonReader;
+import android.util.StringBuilderPrinter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -67,6 +70,21 @@ public class KeyboardWindow {
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(KEYBOARD_WINDOW_FILENAME, Context.MODE_PRIVATE));
         outputStreamWriter.write(newKeyboardWindow.toString(NUMBER_OF_SPACES_FOR_JSON_INDENTATION));
         outputStreamWriter.close();
+    }
+
+    public String getJSONString() throws FileNotFoundException, IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(context.openFileInput(KEYBOARD_WINDOW_FILENAME)));
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append("\n");
+        }
+        reader.close();
+        return sb.toString();
+    }
+
+    public void clearData() {
+        context.deleteFile(KEYBOARD_WINDOW_FILENAME);
     }
 
     private JSONObject parseOrCreate() throws JSONException, IOException {

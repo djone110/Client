@@ -26,14 +26,14 @@
             android:layout_marginBottom="20dp" />
 
         <Button
-            android:text="Analyze"
+            android:text="Send Data to Server"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button"
-            android:onClick="analyze" />
+            android:onClick="sendData" />
 
         <Button
-            android:text="Clear History"
+            android:text="Clear Data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button2"

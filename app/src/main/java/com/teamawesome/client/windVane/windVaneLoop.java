@@ -4,16 +4,14 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.teamawesome.client.comm.commManager;
+import com.teamawesome.client.comm.CommManager;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 // Basically a wrapper for the loop.
@@ -50,7 +48,7 @@ public class windVaneLoop extends Service {
     private class looper extends Thread{
 
         int interval;
-        commManager myComm;
+        CommManager myComm;
 
         looper(){
             interval = 50000;
@@ -100,12 +98,14 @@ public class windVaneLoop extends Service {
                 // the data we received does not suggest
                 // a foreign user. If it returns false, then lock the user out until a password
                 // is provided.
+                /*
                 if (myComm.commServer()) {
                     interval = 50000;
                 } else {
                     interval = 50000;
                     // Lock user out.
                 }
+                */
             }
 
         }

@@ -14,9 +14,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.teamawesome.client.R;
+import com.teamawesome.client.comm.CommManager;
+import com.teamawesome.client.misc.KeyboardWindow;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = MainActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +28,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void analyze(View v) {
-        Intent i = new Intent(this, AnalyzeResults.class);
-        startActivity(i);
+    public void sendData(View v) {
+        CommManager commManager = new CommManager(this);
+        try {
+            commManager.sendJSON();
+        } catch (Exception e) {
+            Toast.makeText(this, "Failed to send data to the server. Check app logs for more information.", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 
     public void clearHistory(View v) {
-        Toast.makeText(this, R.string.notImplementedYet, Toast.LENGTH_SHORT).show();
+        KeyboardWindow window = new KeyboardWindow(this);
+        window.clearData();
     }
 }
