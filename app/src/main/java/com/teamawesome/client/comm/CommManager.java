@@ -62,7 +62,28 @@ public class CommManager {
     // the Android devs have set it up so that requests made from the emulator to 10.0.2.2
     // go to your computer's localhost. so for dev on your local machine, use 10.0.2.2. in prod,
     // we will change this to the public IP address of the server we are using.
-    private static String url = "http://10.0.2.2:5000";
+    
+    i = 0;
+    String ip = null;
+    String fileName = "conConf.txt";    // or wherever this file is idk
+    String line = null;
+    try {
+        // FileReader reads text files in the default encoding.
+        FileReader fileReader = new FileReader(fileName);
+
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        while((line = bufferedReader.readLine()) != null) {
+            if(i == 0) {ip = line;}
+            i++;
+        } bufferedReader.close();         
+    } catch(FileNotFoundException ex) {
+        System.out.println("Unable to open file '" + fileName + "'");                
+    }
+    catch(IOException ex) {
+        System.out.println("Error reading file '" + fileName + "'");                  
+    }
+        
+    private static String url = "http://" + ip;
     private Context context;
     public CommManager(Context c) {
         context = c;
