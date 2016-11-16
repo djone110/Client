@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="test_theme" parent="android:Theme.Material.Light.NoActionBar" >
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:colorPrimary">@color/colorAccent</item>
+        <item name="android:colorAccent">@color/colorPrimary</item>
+        <item name="android:colorForeground">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">@android:color/background_light</item>
+        <item name="android:textColorPrimaryInverse">@color/colorAccent</item>
+        <item name="android:windowBackground">@android:color/background_light</item>
+        <item name="android:textColorSecondary">@color/colorPrimaryDark</item>
+    </style>
+</resources>
