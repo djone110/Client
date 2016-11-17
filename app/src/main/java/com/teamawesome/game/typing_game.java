@@ -36,4 +36,5 @@ public class typing_game extends AppCompatActivity implements View.OnClickListen
     }
 
     //typing analysis
+
 }
