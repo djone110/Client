@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:id="@+id/button2"
-            android:onClick="clearHistory"
+            android:onClick="testGame"
             android:textStyle="normal|bold"
             android:textColor="@color/colorPrimaryDark"
             android:background="@color/buttonColor"

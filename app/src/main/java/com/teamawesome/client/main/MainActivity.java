@@ -42,4 +42,8 @@ public class MainActivity extends AppCompatActivity {
         KeyboardWindow window = new KeyboardWindow(this);
         window.clearData();
     }
+
+    public void testGame(View v){
+        startActivity(new Intent(MainActivity.this, com.teamawesome.game.intro_page_game.class));
+    }
 }
