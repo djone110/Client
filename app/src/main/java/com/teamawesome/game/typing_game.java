@@ -16,8 +16,10 @@ import com.teamawesome.client.R;
  **/
 
 public class typing_game extends AppCompatActivity implements View.OnClickListener{
-    //declare done button
-    Button done;
+    Button done; //declare done button
+    private EditText userInput; //declare user input variable
+
+    //create done button
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,16 +33,17 @@ public class typing_game extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    private EditText userInput;
     //when done button is clicked
     @Override
     public void onClick(View v) {
+        //get text from typing field
         userInput = (EditText)findViewById(R.id.type_here);
 
+        //alert user that data has been stored
+        //eventually this will let the user know if they need to retype
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setMessage("We stored your data.");
         builder1.setCancelable(true);
-
         builder1.setNeutralButton(
                 "Yes",
                 new DialogInterface.OnClickListener() {
@@ -56,5 +59,6 @@ public class typing_game extends AppCompatActivity implements View.OnClickListen
     }
 
     //typing analysis
+    //store data
 
 }
