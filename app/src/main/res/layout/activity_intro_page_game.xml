@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="?android:attr/actionModeSplitBackground">
+
+    <EditText android:id="@+id/game_intro_title"
+        android:layout_width="wrap_content"
+        android:layout_height="197dp"
+        android:text="@string/game_intro_title"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="normal|bold"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/colorAccent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText android:id="@+id/game_intro_idea"
+        android:layout_width="wrap_content"
+        android:text="@string/game_intro_idea"
+        android:layout_height="wrap_content"
+        android:gravity="clip_vertical"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginTop="34dp"
+        android:layout_below="@+id/game_intro_title"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/fullscreen_content_controls"
+        style="?metaButtonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent"
+        android:weightSum="1"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:background="@color/buttonColor"
+            android:layout_margin="5dp"
+            android:text="Yes"
+            android:layout_weight="0.50"
+            android:id="@+id/yes_play_game"
+            android:elevation="17dp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_height="wrap_content"
+            android:textStyle="normal|bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAlignment="center" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@color/buttonColor"
+            android:layout_margin="5dp"
+            android:text="No"
+            android:layout_weight="0.50"
+            android:id="@+id/no_play_game"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="normal|bold"
+            android:elevation="0dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
