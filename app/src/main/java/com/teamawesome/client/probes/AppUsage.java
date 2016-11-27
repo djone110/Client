@@ -76,15 +76,15 @@ public class AppUsage extends Service {
 
         try {
             for (Map.Entry<String, UsageStats> entry : usageByPackage.entrySet()) {
-//                Log.d(TAG, "Package: " + entry.getKey() + " Time used: " + entry.getValue().getTotalTimeInForeground());
-                jsonObject.put(entry.getKey(), entry.getValue());
-
-
+                //Log.d(TAG, "Package: " + entry.getKey() + " Time used: " + entry.getValue().getTotalTimeInForeground());
+                jsonObject.put(entry.getKey(), entry.getValue().getTotalTimeInForeground());
+                Log.d(TAG, "JSONOBJ: " + jsonObject.toString());
             }
 
             // Writes to the Usage Window file.
-            OutputStreamWriter jsonWriter = new OutputStreamWriter(openFileOutput("usage_Window.json", MODE_APPEND));
-            jsonWriter.write(jsonObject.toString());
+            OutputStreamWriter storageWriter = new OutputStreamWriter(openFileOutput("usage_Window.json", Context.MODE_APPEND));
+            storageWriter.write(jsonObject.toString(4));
+            storageWriter.close();
 
         }catch (JSONException e){
             e.printStackTrace();
@@ -104,31 +104,4 @@ public class AppUsage extends Service {
         return super.onUnbind(intent);
     }
 
-    /*
-    List<UsageStats> queryUsageStats = mUsageStatsManager;
-            .queryUsageStats(intervalType, cal.getTimeInMillis(),
-                    System.currentTimeMillis());
-*/
-    /*
-    @Override
-    public List<UsageStats> getUsageStatistics(int period) {
-        // Get the app statistics since one year ago from the current time.
-        cal.add(Calendar.YEAR, -1);
-
-        if (queryUsageStats.size() == 0) {
-            Log.i(TAG, "The user may not allow the access to apps usage. ");
-            Toast.makeText(getActivity(),
-                    getString(R.string.explanation_access_to_appusage_is_not_enabled),
-                    Toast.LENGTH_LONG).show();
-            mOpenUsageSettingButton.setVisibility(View.VISIBLE);
-            mOpenUsageSettingButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
-                }
-            });
-        }
-        return queryUsageStats;
-    }
-    */
 }

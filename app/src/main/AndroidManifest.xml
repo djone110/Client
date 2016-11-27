@@ -57,8 +57,7 @@
         //I hope this is correct but idk -Sarah
         <activity
             android:name="com.teamawesome.game.intro_page_game"
-            android:label="gameIntro"
-        />
+            android:label="gameIntro" />
 
         <receiver
             android:name=".comm.commRecv"
@@ -67,6 +66,7 @@
 
         <service
             android:name=".windVane.windVaneLoop"
+            android:process=":my_process"
             android:enabled="true"
             android:exported="true" />
         <service
@@ -75,6 +75,7 @@
             android:exported="true" />
 
         <activity android:name=".main.AnalyzeResults"></activity>
+        <activity android:name="com.teamawesome.game.typing_game"/>
     </application>
 
 </manifest>

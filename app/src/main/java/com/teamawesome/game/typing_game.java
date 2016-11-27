@@ -19,6 +19,7 @@ public class typing_game extends AppCompatActivity implements View.OnClickListen
     Button done; //declare done button
     private EditText userInput; //declare user input variable
 
+
     //create done button
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class typing_game extends AppCompatActivity implements View.OnClickListen
         done = (Button) findViewById(R.id.done_typing_game);
         //create action listener
         done.setOnClickListener(typing_game.this);
+
 
     }
 
