@@ -17,15 +17,76 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="450px"
+                android:layout_height="wrap_content"
+                android:text="Recent Deviation Rating:"
+                android:id="@+id/textView3"
+                android:textSize="20dp"
+                android:textIsSelectable="false"
+                android:textStyle="bold"
+                android:singleLine="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/MarginDisp"
+                android:elegantTextHeight="false"
+                android:editable="true"
+                android:layout_marginLeft="20dp"
+                android:textSize="20dp"
+                android:textIsSelectable="true"
+                android:textStyle="bold"
+                android:singleLine="false" />
+        </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView"
             android:text="@string/mainActivityText"
-            android:textSize="20sp"
+            android:textSize="18dp"
             android:layout_marginBottom="20dp"
             android:textColor="@color/colorPrimaryDark"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            android:textIsSelectable="false"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confidence In User:"
+                android:id="@+id/textView8"
+                android:textSize="20dp"
+                android:textIsSelectable="false"
+                android:textStyle="bold"
+                android:singleLine="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/overall_confidence"
+                android:id="@+id/ConfidenceDisplay"
+                android:textSize="20dp"
+                android:textIsSelectable="false"
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"
+                android:singleLine="false" />
+
+        </LinearLayout>
 
         <Button
             android:text="Send Data to Server"
@@ -53,7 +114,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:text="Test Game"
+            android:text="Calibrate Keyboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -62,6 +123,21 @@
             android:textStyle="normal|bold"
             android:textColor="@color/colorPrimaryDark"
             android:background="@color/buttonColor"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:singleLine="true" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Services"
+            android:id="@+id/button4"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18dp"
+            android:textStyle="normal|bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@color/buttonColor"
+            android:onClick="startWindvane"
+            android:allowUndo="true"
+            android:layout_margin="10dp" />
     </LinearLayout>
 </RelativeLayout>

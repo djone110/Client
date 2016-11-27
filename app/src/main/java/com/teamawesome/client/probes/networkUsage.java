@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +24,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class networkUsage extends Service {
+    String TAG = "NetworkUsage";
+
     public networkUsage() {
     }
 
@@ -36,11 +39,13 @@ public class networkUsage extends Service {
         JSONObject jsonObject = new JSONObject();
 
         try {
+            Log.d(TAG, "onBind: Trying read network, write.");
             NetworkStats.Bucket bucket = networkStatsManager.querySummaryForDevice(1, "john", startTime, endTime);
             jsonObject.put(now.getTime().toString(), bucket.toString());
-            File file = new File("network_Window.json");
+
             OutputStreamWriter jsonWriter = new OutputStreamWriter(openFileOutput("network_Window.json", MODE_APPEND));
             jsonWriter.write(jsonObject.toString(1));
+            jsonWriter.close();
 
         }catch (RemoteException e){
 

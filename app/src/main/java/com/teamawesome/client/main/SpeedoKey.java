@@ -109,10 +109,12 @@ public class SpeedoKey extends InputMethodService
                 break;
             default:
                 numKeyPresses++;
+
                 if (timeOfWordStart == 0) {
                     timeOfWordStart = System.currentTimeMillis();
                 }
-                handleCharacter(primaryCode);
+                if (caps) handleCharacter(primaryCode - 32);
+                else { handleCharacter(primaryCode);}
                 break;
         }
     }

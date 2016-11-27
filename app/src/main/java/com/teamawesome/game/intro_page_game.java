@@ -17,6 +17,7 @@ public class intro_page_game extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+/*
         setContentView(R.layout.activity_intro_page_game);
 
         //intialization button
@@ -24,14 +25,14 @@ public class intro_page_game extends AppCompatActivity implements View.OnClickLi
         YESbutton.setOnClickListener(intro_page_game.this);
         NObutton = (Button) findViewById(R.id.no_play_game);
         NObutton.setOnClickListener(intro_page_game.this);
-
+*/
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        /* switch (v.getId()) {
 
-            case R.id.yes_play_game:
+            case :
                 startActivity(new Intent(intro_page_game.this, typing_game.class));
                 break;
 
@@ -42,8 +43,9 @@ public class intro_page_game extends AppCompatActivity implements View.OnClickLi
             default:
                 break;
         }
+        */
 
-    }
+   }
 
 
 }

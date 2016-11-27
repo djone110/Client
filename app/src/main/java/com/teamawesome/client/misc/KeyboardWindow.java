@@ -26,6 +26,7 @@ import java.util.List;
 public class KeyboardWindow {
     private Context context;
     private static final String KEYBOARD_WINDOW_FILENAME = "keyboard_Window.json";
+    private static final String KEYBOARD_STORAGE_FILENAME = "keyboard_Storage.json";
     private static final String TOP_LEVEL_ARRAY_NAME = "datapoints";
     private static final String AVERAGE_PRESSURE_NAME = "avgPressure";
     private static final String AVERAGE_WORD_SPEED_NAME = "avgWordSpeed";
@@ -68,8 +69,17 @@ public class KeyboardWindow {
         JSONObject newKeyboardWindow = new JSONObject();
         newKeyboardWindow.put(TOP_LEVEL_ARRAY_NAME, elements);
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(KEYBOARD_WINDOW_FILENAME, Context.MODE_PRIVATE));
+        /*
+        File Storage = new File(KEYBOARD_STORAGE_FILENAME);
+        if (Storage.length() < 200){
+
+            OutputStreamWriter storageWriter = new OutputStreamWriter(context.openFileOutput(KEYBOARD_STORAGE_FILENAME, Context.MODE_PRIVATE));
+            storageWriter.write(newKeyboardWindow.toString(NUMBER_OF_SPACES_FOR_JSON_INDENTATION));
+            storageWriter.close();
+        }*/
         outputStreamWriter.write(newKeyboardWindow.toString(NUMBER_OF_SPACES_FOR_JSON_INDENTATION));
         outputStreamWriter.close();
+
     }
 
     public String getJSONString() throws FileNotFoundException, IOException {
