@@ -15,13 +15,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
+        /*;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
 import com.teamawesome.client.main.MainActivity;
-
+*/
 import org.json.JSONObject;
 
 import java.io.OutputStreamWriter;
@@ -29,10 +30,10 @@ import java.io.OutputStreamWriter;
 /*
  * Created by mason on 10/2/16.
  */
-public class locationFinder extends Service  implements
+public class locationFinder extends Service /* implements
 
-        GoogleApiClient.ConnectionCallbacks, OnConnectionFailedListener {
-
+        GoogleApiClient.ConnectionCallbacks, OnConnectionFailedListener */{
+/*
     LocationManager locationManager;
     GoogleApiClient googleApi;
     String TAG = "LocationFinder";
@@ -40,6 +41,7 @@ public class locationFinder extends Service  implements
     double mLatitude;
     double mLongitude;
     JSONObject jsonObject;
+    */
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
@@ -55,7 +57,7 @@ public class locationFinder extends Service  implements
 
     @Override
     public void onCreate() {
-
+/*
         super.onCreate();
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -93,13 +95,13 @@ public class locationFinder extends Service  implements
 
             }
         };
-
+*/
     }
 
     void toastLoc(Location location) {
         Toast.makeText(locationFinder.this, "" + location.getLatitude(), Toast.LENGTH_SHORT).show();
     }
-
+/*
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(TAG, "onConnectionFailed: " + connectionResult.getErrorMessage());
@@ -157,4 +159,5 @@ public class locationFinder extends Service  implements
         super.onDestroy();
         googleApi.disconnect();
     }
+*/
 }

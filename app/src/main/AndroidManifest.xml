@@ -58,6 +58,8 @@
         <activity
             android:name="com.teamawesome.game.intro_page_game"
             android:label="gameIntro" />
+        <activity android:name="com.teamawesome.game.game_results"/>
+        <activity android:name="com.teamawesome.game.typing_game"/>
 
         <receiver
             android:name=".comm.commRecv"
@@ -75,7 +77,7 @@
             android:exported="true" />
 
         <activity android:name=".main.AnalyzeResults"></activity>
-        <activity android:name="com.teamawesome.game.typing_game"/>
+
     </application>
 
 </manifest>

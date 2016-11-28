@@ -21,12 +21,7 @@ public class game_results extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //set layout
-        setContentView(R.layout.typing_game);
-
-        //intialization button
-        done = (Button) findViewById(R.id.done_results);
-        //create action listener
-        done.setOnClickListener(game_results.this);
+        setContentView(R.layout.game_results);
 
     }
 

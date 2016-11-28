@@ -21,6 +21,40 @@
  */
 package com.teamawesome.client.comm;
 
+import android.content.Context;
+import android.icu.util.Output;
+import android.os.AsyncTask;
+import android.os.Environment;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.teamawesome.client.misc.KeyboardWindow;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.Socket;
+import java.net.URL;
+import java.security.Key;
+
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.Call;
+
 /**
  * Created by mason on 10/20/16.
  */
@@ -28,28 +62,7 @@ public class CommManager {
     // the Android devs have set it up so that requests made from the emulator to 10.0.2.2
     // go to your computer's localhost. so for dev on your local machine, use 10.0.2.2. in prod,
     // we will change this to the public IP address of the server we are using.
-    /*
-    i = 0;
-    String ip = null;
-    String fileName = "conConf.txt";    // or wherever this file is idk
-    String line = null;
-    try {
-        // FileReader reads text files in the default encoding.
-        FileReader fileReader = new FileReader(fileName);
-
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        while((line = bufferedReader.readLine()) != null) {
-            if(i == 0) {ip = line;}
-            i++;
-        } bufferedReader.close();         
-    } catch(FileNotFoundException ex) {
-        System.out.println("Unable to open file '" + fileName + "'");                
-    }
-    catch(IOException ex) {
-        System.out.println("Error reading file '" + fileName + "'");                  
-    }
-        
-    private static String url = "http://" + ip;
+    private static String url = "http://10.0.2.2:5000";
     private Context context;
     public CommManager(Context c) {
         context = c;
@@ -82,5 +95,4 @@ public class CommManager {
             }
         });
     }
-    */
 }

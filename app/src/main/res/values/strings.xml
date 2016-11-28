@@ -8,7 +8,7 @@
     <string name="notImplementedYet">Not implemented yet</string>
     <string name="typing_speed_title">Typing Speed Game</string>
     <string name="typing_speed_instr">Type the italicized text as seen below. Do not try to type faster than normal, because the profile of your behaviors will be incorrect. When you are done typing the text, press <i>DONE</i>.</string>
-    <string name="typing_speed_text">This will surely become my favorite apps because it is so cool. The security it provides is way better than using a simple passcode.</string>
+    <string name="typing_speed_text">This will surely become my favorite app because it is so cool.</string>
     <string name="game_results">Results</string>
     <string name="keyboard_flags">0</string>
     <string name="usage_flags">0</string>

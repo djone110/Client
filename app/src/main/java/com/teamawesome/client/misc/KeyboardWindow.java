@@ -69,14 +69,14 @@ public class KeyboardWindow {
         JSONObject newKeyboardWindow = new JSONObject();
         newKeyboardWindow.put(TOP_LEVEL_ARRAY_NAME, elements);
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(KEYBOARD_WINDOW_FILENAME, Context.MODE_PRIVATE));
-        /*
+
         File Storage = new File(KEYBOARD_STORAGE_FILENAME);
-        if (Storage.length() < 200){
+        if (Storage.length() < 50){
 
             OutputStreamWriter storageWriter = new OutputStreamWriter(context.openFileOutput(KEYBOARD_STORAGE_FILENAME, Context.MODE_PRIVATE));
             storageWriter.write(newKeyboardWindow.toString(NUMBER_OF_SPACES_FOR_JSON_INDENTATION));
             storageWriter.close();
-        }*/
+        }
         outputStreamWriter.write(newKeyboardWindow.toString(NUMBER_OF_SPACES_FOR_JSON_INDENTATION));
         outputStreamWriter.close();
 
