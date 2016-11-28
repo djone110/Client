@@ -3,6 +3,7 @@ package com.teamawesome.client.misc;
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.util.JsonReader;
+import android.util.Log;
 import android.util.StringBuilderPrinter;
 
 import org.json.JSONArray;
@@ -70,9 +71,10 @@ public class KeyboardWindow {
         newKeyboardWindow.put(TOP_LEVEL_ARRAY_NAME, elements);
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(KEYBOARD_WINDOW_FILENAME, Context.MODE_PRIVATE));
 
-        File Storage = new File(KEYBOARD_STORAGE_FILENAME);
+        File Storage = new File( "data/data/com.teamawesome.client/files/", KEYBOARD_STORAGE_FILENAME);
         if (Storage.length() < 50){
 
+            Log.d("WINDOW", "addDatapoint: Store Length: " + Storage.length());
             OutputStreamWriter storageWriter = new OutputStreamWriter(context.openFileOutput(KEYBOARD_STORAGE_FILENAME, Context.MODE_PRIVATE));
             storageWriter.write(newKeyboardWindow.toString(NUMBER_OF_SPACES_FOR_JSON_INDENTATION));
             storageWriter.close();
