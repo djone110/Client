@@ -13,8 +13,6 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.teamawesome.client.R;
 
-import java.util.Arrays;
-
 /**
  * Created by Sarah on 11/15/16.
  **/
@@ -54,11 +52,9 @@ public class typing_game extends AppCompatActivity implements View.OnClickListen
         //typing analysis
         //store data
         Boolean test = false;
-        String text = userInput.toString();
-        String[] ary = text.split(" ");
-        String[] copiedText = getApplicationContext().getResources().getString(R.string.typing_speed_text).split(" ");
+        String text = userInput.getText().toString();
 
-        test = Arrays.equals(ary, copiedText);
+        test = text.equals(getApplicationContext().getResources().getString(R.string.typing_speed_text));
 
         if (test == false) {
             //alert user that data has been stored
@@ -67,7 +63,7 @@ public class typing_game extends AppCompatActivity implements View.OnClickListen
             builder1.setMessage("The text you entered does not match. Please correct your text to move forward.");
             builder1.setCancelable(true);
             builder1.setNeutralButton(
-                    "Yes",
+                    "Okay",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
