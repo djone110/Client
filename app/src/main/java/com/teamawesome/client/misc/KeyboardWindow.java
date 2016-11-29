@@ -72,7 +72,7 @@ public class KeyboardWindow {
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(KEYBOARD_WINDOW_FILENAME, Context.MODE_PRIVATE));
 
         File Storage = new File( "data/data/com.teamawesome.client/files/", KEYBOARD_STORAGE_FILENAME);
-        if (Storage.length() < 50){
+        if (Storage.length() < 1500){
 
             Log.d("WINDOW", "addDatapoint: Store Length: " + Storage.length());
             OutputStreamWriter storageWriter = new OutputStreamWriter(context.openFileOutput(KEYBOARD_STORAGE_FILENAME, Context.MODE_PRIVATE));

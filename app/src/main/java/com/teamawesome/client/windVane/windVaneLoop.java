@@ -116,16 +116,8 @@ public class windVaneLoop extends Service {
                 // the data we received does not suggest
                 // a foreign user. If it returns false, then lock the user out until a password
                 // is provided.
-                /*
-                if (myComm.commServer()) {
-                    interval = 50000;
-                } else {
-                    interval = 50000;
-                    // Lock user out.
-                }
-                */
-
-
+                // Alt, just reset interval. We're not locking out.
+              interval = 50000;
 
             }
 
@@ -200,6 +192,9 @@ public class windVaneLoop extends Service {
                     Log.d(TAG, "keyboardComp: SPEED DIFF: " + speedDiff);
                     Log.d(TAG, "keyboardComp: PRESS DIFF: " + pressDiff);
                     Log.d(TAG, "keyboardComp: ERR DEVI: " + storage.errDev);
+                    Log.d(TAG, "keyboardComp: SPEED DEVI: " + storage.speedDev);
+                    Log.d(TAG, "keyboardComp: PRESS DEVI " + storage.pressDev);
+
 
                     if (errDiff > storage.errDev) {
                         errMOE = errDiff/storage.errDev;
@@ -215,9 +210,17 @@ public class windVaneLoop extends Service {
                         Log.d(TAG, "keyboardComp: PRESSURE WINDOW OF DEVIATION : MARGIN : " + pressMOE);
 
                     }
-                    // IF the net margin of error is greater than 200% for the three fields
+                    // IF the net margin of error is less than 400% (testing) for the three fields
                     //
                     netMOE = errMOE + speedMOE + pressMOE;
+                    if (netMOE < 4){
+                        OutputStreamWriter storeOSW= new OutputStreamWriter(openFileOutput("keyboard_Storage.json", MODE_PRIVATE));
+                        while((line = winBR.readLine()) != null){
+                            Log.d(TAG, "keyboardComp: ATTEMPTING TO WRITE TO STORAGE");
+                            storeOSW.write(line);
+                        }
+                        storeOSW.close();
+                    }
                     OutputStreamWriter keyConfOSW = new OutputStreamWriter(openFileOutput("keyboardConfidence.txt", MODE_PRIVATE));
 
                     keyConfOSW.write(Double.toString(netMOE));
@@ -285,12 +288,17 @@ public class windVaneLoop extends Service {
             File dir = getFilesDir();
             File fd = new File(dir, "keyboard_Window.json");
 
-            if (false){ //fd.delete()
+            if (fd.delete()){ //fd.delete()
                 Log.d(TAG, "deleteWindow: SUCCESS");
             }else{
                 Log.d(TAG, "deleteWindow: FAILURE");
             }
 
+            fd = new File(dir, "keyboard_Storage.json");
+            // Resets the long term storage occasionally.
+            if(fd.length() > 100000){
+                fd.delete();
+            }
 
         }
     }
