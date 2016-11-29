@@ -288,7 +288,7 @@ public class windVaneLoop extends Service {
             File dir = getFilesDir();
             File fd = new File(dir, "keyboard_Window.json");
 
-            if (fd.delete()){ //fd.delete()
+            if (false){ //fd.delete()
                 Log.d(TAG, "deleteWindow: SUCCESS");
             }else{
                 Log.d(TAG, "deleteWindow: FAILURE");
